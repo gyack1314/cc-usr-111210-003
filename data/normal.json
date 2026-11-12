@@ -1,0 +1,111 @@
+{
+  "source": {
+    "path": "orders.pb",
+    "bytes": 67,
+    "sha256": "d2d74f9756c37f14143ded04e695eb150a5626c5f80bb62ff1880282cd6dc6b5"
+  },
+  "descriptor": {
+    "version": 1,
+    "messages": [
+      {
+        "name": "shop.Order",
+        "syntax": "proto2",
+        "fields": [
+          {
+            "number": 1,
+            "name": "id",
+            "type": "sint64",
+            "required": true
+          },
+          {
+            "number": 2,
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "number": 3,
+            "name": "slots",
+            "type": "int32",
+            "repeated": true
+          },
+          {
+            "number": 4,
+            "name": "detail",
+            "type": "message",
+            "message_type": "shop.Detail",
+            "oneof": "offer"
+          },
+          {
+            "number": 5,
+            "name": "fallback",
+            "type": "string",
+            "oneof": "offer"
+          },
+          {
+            "number": 6,
+            "name": "state",
+            "type": "enum",
+            "enum_type": "shop.State"
+          },
+          {
+            "number": 7,
+            "name": "attrs",
+            "type": "message",
+            "message_type": "shop.Entry",
+            "repeated": true
+          }
+        ]
+      },
+      {
+        "name": "shop.Detail",
+        "syntax": "proto2",
+        "fields": [
+          {
+            "number": 1,
+            "name": "city",
+            "type": "string",
+            "required": true
+          },
+          {
+            "number": 2,
+            "name": "note",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "shop.Entry",
+        "syntax": "proto2",
+        "map_entry": true,
+        "fields": [
+          {
+            "number": 1,
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "number": 2,
+            "name": "value",
+            "type": "int32"
+          }
+        ]
+      }
+    ],
+    "enums": {
+      "shop.State": {
+        "0": "UNKNOWN",
+        "1": "ACTIVE"
+      }
+    }
+  },
+  "root_message": "shop.Order",
+  "paths": [
+    "id",
+    "detail.city",
+    "detail.note",
+    "slots",
+    "state"
+  ],
+  "max_frame_bytes": 1048576,
+  "max_depth": 32
+}

@@ -1,0 +1,7 @@
+# 描述符与原wire资料
+
+descriptor.version固定1。消息syntax取proto2/proto3；field.type取int32/int64/uint32/uint64/sint32/sint64/bool/fixed32/sfixed32/fixed64/sfixed64/float/double/string/bytes/enum/message，message_type与enum_type按全名引用。map_entry须恰有key字段1和value字段2，key限合法整数、bool、string，map值按类型默认值补全。保留未知enum数值，已知符号仅为辅助显示。oneof字段不可repeated或required；非法描述符先于读文件拒绝。
+
+varint上限10字节且第10字节只可0或1；int32在64位符号解释后取低32位有符号，uint32拒绝高位非零，bool零为false其他合法整数为true。长度与tag不得越界，字段号零、保留wire类型非法。字段缺失时proto2可选标无presence，proto3隐式标默认且未出现；显式出现默认值仍有来源。每帧独立合并，无跨帧继承。
+
+帧长度不完整停止，内容错误且长度已知则隔离该帧，不能只跳过未知长度片段。恢复绑定描述符及文件SHA。原字节为合成服务绑定，不含真实账号或支付信息。
